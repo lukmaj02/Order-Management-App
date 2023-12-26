@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    discovery:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:9999/order-db
+    username: root
+    password: root
+    driverClassName: org.postgresql.Driver
