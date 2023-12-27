@@ -1,13 +1,9 @@
-package com.App.registryserver;
+package com.App.inventoryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RegistryServerApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
+class InventoryServiceApplicationTests {
 
 }
