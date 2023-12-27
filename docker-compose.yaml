@@ -1,0 +1,65 @@
+version: '3.7'
+name: app
+
+services:
+  check-db-started:
+    image: jwilder/dockerize:0.6.1
+    depends_on:
+      - order-db
+    command: 'dockerize -wait=tcp://order-db:5432 -timeout 30s'
+    networks:
+      - app-network
+
+  check-config-server-started:
+    image: jwilder/dockerize:0.6.1
+    depends_on:
+      - config-server
+    command: 'dockerize -wait=tcp://config-server:8888 -timeout 30s'
+    networks:
+      - app-network
+
+  ###     CONFIG-SERVER   ###
+
+  config-server:
+    container_name: config-server
+    build: config-server/.
+    ports:
+      - '8888:8888'
+    networks:
+      - app-network
+
+   ###     ORDER-SERVICE   ###
+
+  order-service:
+    container_name: order-service
+    build: order-service/.
+    ports:
+      - '8081:8081'
+    depends_on:
+     check-config-server-started:
+       condition: service_completed_successfully
+     check-db-started:
+       condition: service_completed_successfully
+    command: sh -c './wait-for config-server:8888 -- ./wait-for order_db:5432 -- npm start'
+    networks:
+      - app-network
+
+  order-db:
+    container_name: order-db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=order_db
+    ports:
+      - '9999:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U root -d order_db'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - app-network
+networks:
+  app-network:
