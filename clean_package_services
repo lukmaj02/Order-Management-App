@@ -7,6 +7,9 @@ mvn clean install
 cd ..
 cd /Users/lukaszmajcher/Desktop/Order-Management-App/order-service/
 mvn clean install
+cd ..
+cd /Users/lukaszmajcher/Desktop/Order-Management-App/inventory-service/
+mvn clean install
 
 docker-compose build
 docker-compose up

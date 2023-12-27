@@ -2,22 +2,6 @@ version: '3.7'
 name: app
 
 services:
-  check-db-started:
-    image: jwilder/dockerize:0.6.1
-    depends_on:
-      - order-db
-    command: 'dockerize -wait=tcp://order-db:5432 -timeout 30s'
-    networks:
-      - app-network
-
-  check-config-server-started:
-    image: jwilder/dockerize:0.6.1
-    depends_on:
-      - config-server
-    command: 'dockerize -wait=tcp://config-server:8888 -timeout 30s'
-    networks:
-      - app-network
-
   ###     CONFIG-SERVER   ###
 
   config-server:
@@ -26,7 +10,7 @@ services:
     ports:
       - '8888:8888'
     networks:
-      - app-network
+      - network
 
    ###     ORDER-SERVICE   ###
 
@@ -36,13 +20,29 @@ services:
     ports:
       - '8081:8081'
     depends_on:
-     check-config-server-started:
+      check-config-server-started:
        condition: service_completed_successfully
-     check-db-started:
-       condition: service_completed_successfully
+      check-order_db-started:
+        condition: service_completed_successfully
     command: sh -c './wait-for config-server:8888 -- ./wait-for order_db:5432 -- npm start'
     networks:
-      - app-network
+      - network
+
+  inventory-service:
+    container_name: inventory-service
+    build: inventory-service/.
+    ports:
+      - '8082:8082'
+    depends_on:
+      check-config-server-started:
+        condition: service_completed_successfully
+      check-inventory_db-started:
+        condition: service_completed_successfully
+    command: sh -c './wait-for config-server:8888 -- ./wait-for inventory_db:5432 -- npm start'
+    networks:
+      - network
+
+  ###     ORDER-DB   ###
 
   order-db:
     container_name: order-db
@@ -60,6 +60,49 @@ services:
       timeout: 3s
       retries: 3
     networks:
-      - app-network
+      - network
+
+  ###     INVENTORY-DB   ###
+
+  inventory-db:
+      container_name: inventory-db
+      image: postgres:latest
+      restart: always
+      environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=root
+        - POSTGRES_DB=inventory_db
+      ports:
+        - '9998:5432'
+      healthcheck:
+        test: [ "CMD-SHELL", "sh -c 'pg_isready -U root -d inventory_db'" ]
+        interval: 10s
+        timeout: 3s
+        retries: 3
+      networks:
+        - network
+  check-order_db-started:
+    image: jwilder/dockerize:0.6.1
+    depends_on:
+      - order-db
+    command: 'dockerize -wait=tcp://order-db:5432 -timeout 30s'
+    networks:
+      - network
+
+  check-inventory_db-started:
+    image: jwilder/dockerize:0.6.1
+    depends_on:
+      - order-db
+    command: 'dockerize -wait=tcp://inventory-db:5432 -timeout 30s'
+    networks:
+      - network
+
+  check-config-server-started:
+    image: jwilder/dockerize:0.6.1
+    depends_on:
+      - config-server
+    command: 'dockerize -wait=tcp://config-server:8888 -timeout 30s'
+    networks:
+      - network
 networks:
-  app-network:
+  network:
