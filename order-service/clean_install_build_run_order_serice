@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker stop order-service
+docker rm order-service
+docker rmi order-service
+mvn clean install
+docker build -t order-service .
+docker run --network app_network -d -p 8081:8081 --name order-service order-service

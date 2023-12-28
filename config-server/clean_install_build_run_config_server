@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker stop config-server
+docker rm config-server
+docker rmi config-server
+mvn clean install
+docker build -t config-server .
+docker run --network app_network -d -p 8888:8888 --name config-server config-server

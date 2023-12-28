@@ -1,5 +1,6 @@
 package com.App.orderservice.Service;
 
+import com.App.orderservice.Client.InventoryClient;
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class OrderService implements IOrderService{
 
     private final OrderRepository orderRepository;
+    private final InventoryClient inventoryClient;
     @Override
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -26,7 +28,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public void addOrder(Order order) {
-        order.setId(UUID.randomUUID().toString());
+        order.setOrderId(UUID.randomUUID().toString());
         order.setOrderDate(LocalDateTime.now());
         orderRepository.save(order);
     }

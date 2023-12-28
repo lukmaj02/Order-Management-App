@@ -1,9 +1,11 @@
-package com.App.inventoryservice.Model;
+package com.App.orderservice.Model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,9 +14,10 @@ import lombok.Setter;
 @Table(name = "product_table")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String productId;
-    private String productName;
     private String quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private Order productOrder;
 }
