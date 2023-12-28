@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: discovery-service
+  cache:
+    caffeine:
+      spec: maximumSize=100
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    hostname: discovery-service
+
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}
+
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000
