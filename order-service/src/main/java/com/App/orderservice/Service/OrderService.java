@@ -27,11 +27,14 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public void addOrder(Order order) {
+    public void createOrder(Order order) {
         order.setOrderId(UUID.randomUUID().toString());
         order.setOrderDate(LocalDateTime.now());
         orderRepository.save(order);
     }
 
-
+    @Override
+    public void deleteOrder(String orderId) {
+        orderRepository.deleteById(orderId);
+    }
 }

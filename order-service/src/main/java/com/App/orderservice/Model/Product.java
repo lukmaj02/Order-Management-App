@@ -1,5 +1,6 @@
 package com.App.orderservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,13 @@ import java.util.List;
 @Table(name = "product_table")
 public class Product {
     @Id
+    private String productOrderId;
+    private String productName;
     private String productId;
-    private String quantity;
+    private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "orderId")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    @JsonIgnore
     private Order productOrder;
 }

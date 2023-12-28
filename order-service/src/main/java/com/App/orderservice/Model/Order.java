@@ -15,11 +15,13 @@ import java.util.List;
 @Table(name = "order_table")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String orderId;
     private LocalDateTime orderDate;
     private String clientId;
 
-    @OneToMany(mappedBy = "productOrder")
-    List<Product> orderProducts;
+    @OneToMany(
+            mappedBy = "productOrder",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<Product> orderProducts;
 }

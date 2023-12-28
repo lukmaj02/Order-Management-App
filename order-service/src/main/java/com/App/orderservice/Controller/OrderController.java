@@ -10,29 +10,31 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/order-service")
+@RequestMapping("/api/v1/order-service/order")
 public class OrderController {
 
     private final IOrderService orderService;
+    @GetMapping("/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Order getOrderById(@PathVariable String orderId){
+        return orderService.getOrderById(orderId);
+    }
+
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
     }
-    @GetMapping("/test")
-    @ResponseStatus(HttpStatus.OK)
-    public String test(){
-        return "UDALO SIE";
-    }
-    @GetMapping("/order")
-    @ResponseStatus(HttpStatus.OK)
-    public Order getOrderById(@RequestParam String id){
-        return orderService.getOrderById(id);
-    }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOrder(@RequestBody Order order){
-        orderService.addOrder(order);
+    public void createOrder(@RequestBody Order order){
+        orderService.createOrder(order);
+    }
+
+    @DeleteMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteOrder(@RequestParam String orderId){
+        orderService.deleteOrder(orderId);
     }
 }
