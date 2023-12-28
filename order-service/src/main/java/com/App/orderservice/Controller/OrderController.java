@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/order")
+@RequestMapping("/api/v1/order-service")
 public class OrderController {
 
     private final IOrderService orderService;
@@ -24,7 +24,7 @@ public class OrderController {
     public String test(){
         return "UDALO SIE";
     }
-    @GetMapping("/")
+    @GetMapping("/order")
     @ResponseStatus(HttpStatus.OK)
     public Order getOrderById(@RequestParam String id){
         return orderService.getOrderById(id);
