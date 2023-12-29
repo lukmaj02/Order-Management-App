@@ -1,7 +1,6 @@
-package com.App.orderservice.dtos;
+package com.App.inventoryservice.Model;
 
-import lombok.Builder;
+import java.util.List;
 
-@Builder
 public record ProductExchange(String productId, String productName, Integer quantity) {
 }

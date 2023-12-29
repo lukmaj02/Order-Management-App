@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/order-service/order")
+@RequestMapping("/api/v1/order-service")
 public class OrderController {
 
     private final IOrderService orderService;
@@ -21,21 +21,27 @@ public class OrderController {
         return orderService.getOrderById(orderId);
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@RequestBody OrderDto order){
         orderService.createOrder(order);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/remove")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteOrder(@RequestParam String orderId){
-        orderService.deleteOrder(orderId);
+    public void deleteOrder(@RequestParam String id){
+        orderService.deleteOrder(id);
+    }
+
+    @PostMapping("/place")
+    @ResponseStatus(HttpStatus.OK)
+    public void placeOrder(@RequestParam String id){
+        orderService.placeOrder(id);
     }
 }

@@ -1,11 +1,14 @@
 package com.App.orderservice.Service;
 
+import com.App.orderservice.Client.InventoryClient;
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Model.Product;
 import com.App.orderservice.Repository.ProductRepository;
+import com.App.orderservice.dtos.ProductExchange;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.naming.InsufficientResourcesException;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +18,7 @@ public class ProductService implements IProductService{
 
     private final ProductRepository productRepository;
     private final OrderService orderService;
+    private final InventoryClient inventoryClient;
 
     @Override
     public List<Product> getOrderProducts(String orderId) {
@@ -28,10 +32,15 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public void addProductToOrder(Product product, String orderId) {
+    public void addProductToOrder(ProductExchange productExchange, String orderId) {
         var order = orderService.getOrderById(orderId);
-        product.setProductOrderId(UUID.randomUUID().toString());
-        product.setProductOrder(order);
+        var product = Product.builder()
+                .productOrderId(UUID.randomUUID().toString())
+                .productId(productExchange.productId())
+                .productName(productExchange.productName())
+                .quantity(productExchange.quantity())
+                .productOrder(order)
+                .build();
         productRepository.save(product);
     }
     @Override

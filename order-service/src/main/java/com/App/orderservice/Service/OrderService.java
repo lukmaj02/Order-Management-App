@@ -5,10 +5,8 @@ import com.App.orderservice.Exceptions.OrderNotFoundException;
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Repository.OrderRepository;
 import com.App.orderservice.dtos.OrderDto;
-import com.App.orderservice.dtos.OrderExchange;
-import com.App.orderservice.util.OrderMapper;
+import com.App.orderservice.util.ProductMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -49,6 +47,6 @@ public class OrderService implements IOrderService{
     @Override
     public void placeOrder(String orderId) {
         var order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
-        inventoryClient.placeOrder(OrderMapper.mapToOrderExchange(order));
+        inventoryClient.processProduct(ProductMapper.map(order.getOrderProducts()));
     }
 }

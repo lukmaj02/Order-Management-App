@@ -2,6 +2,7 @@ package com.App.orderservice.Controller;
 
 import com.App.orderservice.Model.Product;
 import com.App.orderservice.Service.IProductService;
+import com.App.orderservice.dtos.ProductExchange;
 import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/order-service/order/product")
+@RequestMapping("/api/v1/order-service/product")
 public class ProductController {
 
     private final IProductService productService;
@@ -28,8 +29,8 @@ public class ProductController {
     }
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addProductToOrder(@RequestBody Product product, @RequestParam String productOrderId){
-        productService.addProductToOrder(product, productOrderId);
+    public void addProductToOrder(@RequestBody ProductExchange product, @RequestParam String orderId){
+        productService.addProductToOrder(product, orderId);
     }
 
     @DeleteMapping("")
@@ -38,9 +39,9 @@ public class ProductController {
         productService.deleteProductFromOrder(productOrderId);
     }
 
-    @PutMapping("/{productOrderId}")
+    @PutMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProductToOrder(@PathVariable String productOrderId, @RequestParam Integer quantity){
+    public void updateProductToOrder(@RequestParam String productOrderId, @RequestParam Integer quantity){
         productService.updateProductToOrder(productOrderId, quantity);
     }
 }
