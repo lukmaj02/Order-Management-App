@@ -1,5 +1,6 @@
 package com.App.inventoryservice.Controller;
 
+import com.App.inventoryservice.Model.OrderExchange;
 import com.App.inventoryservice.Model.Product;
 import com.App.inventoryservice.Service.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,12 @@ public class InventoryController {
     @ResponseStatus(HttpStatus.OK)
     public void addProduct(@RequestBody Product product){
         productService.addProduct(product);
+    }
+
+    @PostMapping("/order")
+    @ResponseStatus(HttpStatus.OK)
+    public void processOrder(@RequestBody OrderExchange orderExchange){
+        productService.processOrder(orderExchange);
     }
 
 }

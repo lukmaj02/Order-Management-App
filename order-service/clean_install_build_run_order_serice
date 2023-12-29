@@ -5,4 +5,4 @@ docker rm order-service
 docker rmi order-service
 mvn clean install
 docker build -t order-service .
-docker run --network app_network -d -p 8081:8081 --name order-service order-service
+docker run --network app_network -d -p 8081:8081 -p 5005:5005 -e JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n" --name order-service order-service

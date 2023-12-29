@@ -2,6 +2,7 @@ package com.App.orderservice.Controller;
 
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Service.IOrderService;
+import com.App.orderservice.dtos.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class OrderController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(@RequestBody Order order){
+    public void createOrder(@RequestBody OrderDto order){
         orderService.createOrder(order);
     }
 

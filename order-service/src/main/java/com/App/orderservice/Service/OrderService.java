@@ -1,9 +1,14 @@
 package com.App.orderservice.Service;
 
 import com.App.orderservice.Client.InventoryClient;
+import com.App.orderservice.Exceptions.OrderNotFoundException;
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Repository.OrderRepository;
+import com.App.orderservice.dtos.OrderDto;
+import com.App.orderservice.dtos.OrderExchange;
+import com.App.orderservice.util.OrderMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,19 +27,28 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public Order getOrderById(String id) {
-        return orderRepository.findById(id).orElseThrow();
+    public Order getOrderById(String orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 
     @Override
-    public void createOrder(Order order) {
-        order.setOrderId(UUID.randomUUID().toString());
-        order.setOrderDate(LocalDateTime.now());
+    public void createOrder(OrderDto orderDto) {
+        var order = Order.builder()
+                .clientId(orderDto.clientId())
+                .orderId(UUID.randomUUID().toString())
+                .orderDate(LocalDateTime.now())
+                .build();
         orderRepository.save(order);
     }
 
     @Override
     public void deleteOrder(String orderId) {
         orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public void placeOrder(String orderId) {
+        var order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
+        inventoryClient.placeOrder(OrderMapper.mapToOrderExchange(order));
     }
 }
