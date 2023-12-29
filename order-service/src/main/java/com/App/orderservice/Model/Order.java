@@ -1,9 +1,7 @@
 package com.App.orderservice.Model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,14 +9,20 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "order_table")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private String orderId;
     private LocalDateTime orderDate;
     private String clientId;
-    private String productId;
+
+    @OneToMany(
+            mappedBy = "productOrder",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<Product> orderProducts;
 }

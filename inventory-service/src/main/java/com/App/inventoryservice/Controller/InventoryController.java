@@ -1,5 +1,7 @@
 package com.App.inventoryservice.Controller;
 
+import com.App.inventoryservice.Model.ProductDto;
+import com.App.inventoryservice.Model.ProductExchange;
 import com.App.inventoryservice.Model.Product;
 import com.App.inventoryservice.Service.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +17,6 @@ public class InventoryController {
 
     private final IProductService productService;
 
-    @GetMapping("/test")
-    @ResponseStatus(HttpStatus.OK)
-    public String test(){
-        return "UDALO SIE";
-    }
-
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProducts(){
@@ -35,8 +31,20 @@ public class InventoryController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public void addProduct(@RequestBody Product product){
-        productService.addProduct(product);
+    public void addProduct(@RequestBody ProductDto productDto){
+        productService.addProduct(productDto);
+    }
+
+    @PostMapping("/order")
+    @ResponseStatus(HttpStatus.OK)
+    public void processProducts(@RequestBody List<ProductExchange> products){
+        productService.processProducts(products);
+    }
+
+    @PostMapping("/product-availability")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean checkResourceProductAvailability(@RequestBody ProductExchange productExchange){
+        return productService.checkProductResource(productExchange);
     }
 
 }

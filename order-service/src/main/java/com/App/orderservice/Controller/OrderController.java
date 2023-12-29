@@ -2,6 +2,7 @@ package com.App.orderservice.Controller;
 
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Service.IOrderService;
+import com.App.orderservice.dtos.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,25 +15,33 @@ import java.util.List;
 public class OrderController {
 
     private final IOrderService orderService;
-    @GetMapping("")
+    @GetMapping("/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Order getOrderById(@PathVariable String orderId){
+        return orderService.getOrderById(orderId);
+    }
+
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
     }
-    @GetMapping("/test")
-    @ResponseStatus(HttpStatus.OK)
-    public String test(){
-        return "UDALO SIE";
-    }
-    @GetMapping("/order")
-    @ResponseStatus(HttpStatus.OK)
-    public Order getOrderById(@RequestParam String id){
-        return orderService.getOrderById(id);
+
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createOrder(@RequestBody OrderDto order){
+        orderService.createOrder(order);
     }
 
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addOrder(@RequestBody Order order){
-        orderService.addOrder(order);
+    @DeleteMapping("/remove")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteOrder(@RequestParam String id){
+        orderService.deleteOrder(id);
+    }
+
+    @PostMapping("/place")
+    @ResponseStatus(HttpStatus.OK)
+    public void placeOrder(@RequestParam String id){
+        orderService.placeOrder(id);
     }
 }
