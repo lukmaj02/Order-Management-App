@@ -11,6 +11,7 @@
         <module name="order-service" />
         <module name="inventory-service" />
         <module name="discovery-service" />
+        <module name="gateway-service" />
         <module name="client-service" />
       </profile>
     </annotationProcessing>
@@ -27,6 +28,7 @@
       <module name="config-server" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
     </option>

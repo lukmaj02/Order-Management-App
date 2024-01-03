@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/inventory-service")
+@RequestMapping("api/v1")
 public class InventoryController {
 
     private final IProductService productService;
 
-    @GetMapping("")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
@@ -29,7 +29,7 @@ public class InventoryController {
         return productService.getProductById(id);
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
     public void addProduct(@RequestBody ProductDto productDto){
         productService.addProduct(productDto);

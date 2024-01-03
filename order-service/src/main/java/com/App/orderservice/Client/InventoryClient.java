@@ -14,9 +14,9 @@ import java.util.List;
 
 @HttpExchange
 public interface InventoryClient {
-    @PostExchange("/api/v1/inventory-service/order")
+    @PostExchange("/api/v1/order")
     void processProduct(@RequestBody List<ProductExchange> products);
 
-    @PostExchange("/api/v1/inventory-service/product-availability")
+    @PostExchange("/api/v1/product-availability")
     boolean checkProductAvailability(@RequestBody ProductExchange productExchange);
 }
