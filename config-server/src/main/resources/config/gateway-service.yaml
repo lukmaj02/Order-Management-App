@@ -14,4 +14,13 @@ spring:
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/v1/order/**
+            - Path=/order/**
+          filters:
+            - PrefixPath=/api/v1
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - PrefixPath=/api/v1
+

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1/product")
 public class InventoryController {
 
     private final IProductService productService;
@@ -23,9 +23,9 @@ public class InventoryController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/product")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product getProductById(@RequestParam String id){
+    public Product getProductById(@PathVariable String id){
         return productService.getProductById(id);
     }
 
@@ -41,7 +41,7 @@ public class InventoryController {
         productService.processProducts(products);
     }
 
-    @PostMapping("/product-availability")
+    @PostMapping("/availability")
     @ResponseStatus(HttpStatus.OK)
     public boolean checkResourceProductAvailability(@RequestBody ProductExchange productExchange){
         return productService.checkProductResource(productExchange);
