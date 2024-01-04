@@ -1,0 +1,8 @@
+#!/bin/bash
+
+winpty docker exec -it config-server sh -c 'curl -X POST http://keycloak-service:8080/realms/order-management-app/protocol/openid-connect/token \
+                                             -d "grant_type=client_credentials" \
+                                             -d "client_id=microservice-app" \
+                                             -d "client_secret=C327ntMp5Tu8s5jQMO5udCnO9K7CsTSb"'
+
+
