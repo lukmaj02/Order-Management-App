@@ -7,6 +7,7 @@ import com.App.orderservice.Repository.OrderRepository;
 import com.App.orderservice.dtos.OrderDto;
 import com.App.orderservice.util.ProductMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,6 +48,9 @@ public class OrderService implements IOrderService{
     @Override
     public void placeOrder(String orderId) {
         var order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
-        inventoryClient.processProduct(ProductMapper.map(order.getOrderProducts()));
+        var response = inventoryClient.processProduct(ProductMapper.map(order.getOrderProducts()));
+        if(response.getStatusCode().is2xxSuccessful()){
+            orderRepository.delete(order);
+        }
     }
 }

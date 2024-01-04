@@ -30,7 +30,7 @@ public class InventoryController {
     }
 
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void addProduct(@RequestBody ProductDto productDto){
         productService.addProduct(productDto);
     }

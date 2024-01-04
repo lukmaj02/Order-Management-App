@@ -14,13 +14,22 @@ spring:
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/order/**
-          filters:
-            - PrefixPath=/api/v1
+            - Path=/api/v1/order/**
+#          filters:
+#            - PrefixPath=/api/v1
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
-            - Path=/product/**
-          filters:
-            - PrefixPath=/api/v1
+            - Path=/api/v1/product/**
+#          filters:
+#            - PrefixPath=/api/v1
+        - id: discovery-service
+          uri: http://discovery-service:8761
+          predicates:
+            - Path=/eureka/**
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak-service:8080/realms/order-management-app
