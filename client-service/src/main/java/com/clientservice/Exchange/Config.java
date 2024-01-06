@@ -10,7 +10,7 @@ public class Config {
     @Bean
     WebClient keycloak(){
         return WebClient.builder()
-                .baseUrl("http://keycloak-service:8080")
+                .baseUrl("http://localhost:8090")
                 .build();
     }
 }
