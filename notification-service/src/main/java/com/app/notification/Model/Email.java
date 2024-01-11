@@ -7,10 +7,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Email implements Sendable{
-    private String userEmail;
+public class Email{
+    private String toEmail;
     private String message;
     private String title;
-
 
 }
