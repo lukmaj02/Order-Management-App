@@ -15,3 +15,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
+
+user:
+  registration:
+    url: /admin/realms/order-management-app/users
