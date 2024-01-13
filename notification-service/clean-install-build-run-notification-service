@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker stop notification-service
+docker rm notification-service
+docker rmi notification-service
+mvn clean install
+docker build -t notification-service .
+docker run --env-file .env --network app_network -d -p 8083:8083 -p 587:587 --name notification-service notification-service
