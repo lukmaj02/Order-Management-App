@@ -23,6 +23,7 @@ public class OrderService implements IOrderService{
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
     private final NotificationClient notificationClient;
+    private static final String ORDER_PLACED_SUCCESSFULLY = "Order was placed successfully!";
     @Override
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -55,9 +56,9 @@ public class OrderService implements IOrderService{
         if(response.getStatusCode().is2xxSuccessful()){
             orderRepository.delete(order);
             notificationClient.sendMail(Email.builder()
-                    .toEmail("legey46251@pursip.com")
-                    .message("wyslal")
-                    .title("wyslal")
+                    .toEmail("legey46251@pursip.com")   //todo
+                    .message("")
+                    .title(ORDER_PLACED_SUCCESSFULLY)
                     .build());
         }
     }

@@ -16,8 +16,8 @@ public class InventoryControllerHandler {
         return e.getMessage();
     }
     @ExceptionHandler(InsufficientProductResources.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public String InsufficientProductResourceAdivce(InsufficientProductResources e){
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String InsufficientProductResourceAdvice(InsufficientProductResources e){
         return e.getMessage();
     }
 }
