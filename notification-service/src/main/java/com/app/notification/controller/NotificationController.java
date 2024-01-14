@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/vi/notification")
+@RequestMapping("api/v1/notification")
 @RequiredArgsConstructor
 public class NotificationController{
 

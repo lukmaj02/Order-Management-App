@@ -1,9 +1,11 @@
 package com.App.orderservice.Service;
 
 import com.App.orderservice.Client.InventoryClient;
+import com.App.orderservice.Client.NotificationClient;
 import com.App.orderservice.Exceptions.OrderNotFoundException;
 import com.App.orderservice.Model.Order;
 import com.App.orderservice.Repository.OrderRepository;
+import com.App.orderservice.dtos.Email;
 import com.App.orderservice.dtos.OrderDto;
 import com.App.orderservice.util.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class OrderService implements IOrderService{
 
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
+    private final NotificationClient notificationClient;
     @Override
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -51,6 +54,11 @@ public class OrderService implements IOrderService{
         var response = inventoryClient.processProduct(ProductMapper.map(order.getOrderProducts()));
         if(response.getStatusCode().is2xxSuccessful()){
             orderRepository.delete(order);
+            notificationClient.sendMail(Email.builder()
+                    .toEmail("legey46251@pursip.com")
+                    .message("wyslal")
+                    .title("wyslal")
+                    .build());
         }
     }
 }

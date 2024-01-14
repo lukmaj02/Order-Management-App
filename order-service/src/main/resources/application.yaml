@@ -6,3 +6,8 @@ spring:
     name: order-service
   config:
     import: "optional:configserver:http://config-server:8888"
+
+services:
+  path:
+    notification-service: "http://notification-service"
+    inventory-service: "http://inventory-service"
