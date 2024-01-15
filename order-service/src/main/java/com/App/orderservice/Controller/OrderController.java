@@ -15,10 +15,10 @@ import java.util.List;
 public class OrderController {
 
     private final IOrderService orderService;
-    @GetMapping("/{orderId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Order getOrderById(@PathVariable String orderId){
-        return orderService.getOrderById(orderId);
+    public Order getOrderById(@PathVariable String id){
+        return orderService.getOrderById(id);
     }
 
     @GetMapping("/")

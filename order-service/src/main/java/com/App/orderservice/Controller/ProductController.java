@@ -41,7 +41,7 @@ public class ProductController {
 
     @PutMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProductToOrder(@RequestParam String productOrderId, @RequestParam Integer quantity){
+    public void updateProductToOrder(@RequestParam String productOrderId, @RequestBody Integer quantity){
         productService.updateProductToOrder(productOrderId, quantity);
     }
 }

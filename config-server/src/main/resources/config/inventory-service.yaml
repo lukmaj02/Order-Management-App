@@ -3,7 +3,7 @@ spring:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     platform: postgres
     url: jdbc:postgresql://inventory-db:5432/inventory_db

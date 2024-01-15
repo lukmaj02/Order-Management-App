@@ -22,7 +22,7 @@ public class OrderConfiguration {
     @Bean
     public WebClient inventoryWebClient(){
         return WebClient.builder()
-                .baseUrl("http://inventory-service")
+                .baseUrl(INVENTORY_SERVICE_PATH)
                 .filter(filterFunction)
                 .build();
     }
@@ -45,7 +45,7 @@ public class OrderConfiguration {
     public NotificationClient notificationClient(){
         HttpServiceProxyFactory httpServiceProxyFactory =
                 HttpServiceProxyFactory
-                        .builderFor(WebClientAdapter.create(inventoryWebClient()))
+                        .builderFor(WebClientAdapter.create(notificationWebClient()))
                         .build();
         return httpServiceProxyFactory.createClient(NotificationClient.class);
     }

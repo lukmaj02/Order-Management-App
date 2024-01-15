@@ -11,6 +11,7 @@ import com.App.orderservice.util.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,13 +51,14 @@ public class OrderService implements IOrderService{
     }
 
     @Override
+    @Transactional
     public void placeOrder(String orderId) {
         var order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
         var response = inventoryClient.processProduct(ProductMapper.map(order.getOrderProducts()));
         if(response.getStatusCode().is2xxSuccessful()){
             orderRepository.delete(order);
             notificationClient.sendMail(Email.builder()
-                    .toEmail("legey46251@pursip.com")   //todo
+                    .toEmail("wasidek826@tanlanav.com")   //todo
                     .message("")
                     .title(ORDER_PLACED_SUCCESSFULLY)
                     .build());

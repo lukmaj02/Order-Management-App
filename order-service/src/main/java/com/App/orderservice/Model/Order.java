@@ -20,9 +20,8 @@ public class Order {
     private LocalDateTime orderDate;
     private String clientId;
 
-    @OneToMany(
-            mappedBy = "productOrder",
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "productOrder",
+                orphanRemoval = true,
+                fetch = FetchType.LAZY)
     private List<Product> orderProducts;
 }
