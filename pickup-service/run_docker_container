@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker stop pickup-service
+docker rm pickup-service
+docker rmi pickup-service
+mvn clean install
+docker build -t pickup-service .
+docker run --network app_network -d -p 8084:8084 --name pickup-service pickup-service
