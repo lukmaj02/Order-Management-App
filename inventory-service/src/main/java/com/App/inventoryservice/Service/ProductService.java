@@ -44,21 +44,17 @@ public class ProductService implements IProductService{
     @Transactional
     @Override
     public void processProducts(List<ProductExchange> products) {
-        for (ProductExchange product : products){
-            var productInDb = productRepository
-                    .findById(product.productId())
-                    .orElseThrow(() -> new ProductNotFoundException(product.productId()));
-            if(product.quantity() > productInDb.getQuantity())
-                throw new InsufficientProductResources(productInDb.getProductName()
-                        ,product.quantity()-productInDb.getQuantity());
+        products.forEach(product -> {
+            var productInDb = productRepository.findById(product.productId()).orElseThrow(() -> new ProductNotFoundException(product.productId()));
+            int subtract = product.quantity() - productInDb.getQuantity();
+            if(subtract < 0) throw new InsufficientProductResources(productInDb.getProductName(),subtract);
             productInDb.setQuantity(productInDb.getQuantity() - product.quantity());
-        }
+        });
     }
 
     @Override
     public boolean checkProductResource(ProductExchange productExchange) {
-        var product = productRepository.findById(productExchange.productId())
-                .orElseThrow(() -> new ProductNotFoundException(productExchange.productId()));
+        var product = productRepository.findById(productExchange.productId()).orElseThrow(() -> new ProductNotFoundException(productExchange.productId()));
         return productExchange.quantity() <= product.getQuantity();
     }
 }
