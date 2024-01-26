@@ -9,10 +9,17 @@ services:
     build: config-server/.
     ports:
       - '8888:8888'
-    networks:
-      - network
 
-   ###     ORDER-SERVICE   ###
+    ###     DISCOVERY-SERVICE   ###
+
+  discovery-service:
+    container_name: discovery-service
+    build: discovery-service/.
+    ports:
+      - '8761:8761'
+
+
+    ###     ORDER-SERVICE   ###
 
   order-service:
     container_name: order-service
@@ -25,8 +32,6 @@ services:
       check-order_db-started:
         condition: service_completed_successfully
     command: sh -c './wait-for config-server:8888 -- ./wait-for order_db:5432 -- npm start'
-    networks:
-      - network
 
   inventory-service:
     container_name: inventory-service
@@ -39,8 +44,6 @@ services:
       check-inventory_db-started:
         condition: service_completed_successfully
     command: sh -c './wait-for config-server:8888 -- ./wait-for inventory_db:5432 -- npm start'
-    networks:
-      - network
 
   ###     ORDER-DB   ###
 
@@ -59,8 +62,6 @@ services:
       interval: 10s
       timeout: 3s
       retries: 3
-    networks:
-      - network
 
   ###     INVENTORY-DB   ###
 
@@ -79,30 +80,20 @@ services:
         interval: 10s
         timeout: 3s
         retries: 3
-      networks:
-        - network
   check-order_db-started:
     image: jwilder/dockerize:0.6.1
     depends_on:
       - order-db
     command: 'dockerize -wait=tcp://order-db:5432 -timeout 30s'
-    networks:
-      - network
 
   check-inventory_db-started:
     image: jwilder/dockerize:0.6.1
     depends_on:
       - order-db
     command: 'dockerize -wait=tcp://inventory-db:5432 -timeout 30s'
-    networks:
-      - network
 
   check-config-server-started:
     image: jwilder/dockerize:0.6.1
     depends_on:
       - config-server
     command: 'dockerize -wait=tcp://config-server:8888 -timeout 30s'
-    networks:
-      - network
-networks:
-  network:
