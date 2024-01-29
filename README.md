@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Order Management App is a distributed application built on a microservices architecture. It consists of several services including Order Service, Inventory Service, Discovery Service, Config Server, and Notification Service. This setup allows for better scalability, maintainability, and independent deployment of each service.
+The Order Management App is a distributed application built on a microservices architecture. It consists of several services including Order Service, Inventory Service, Discovery Service, Config Server, Notification Service, Gateway Service, and Keycloak Service. This setup allows for better scalability, maintainability, and independent deployment of each service.
 
 ## Microservices (still in progress)
 
@@ -30,6 +30,17 @@ The Order Management App is a distributed application built on a microservices a
 
 - Sends email notifications to users regarding their orders.
 - Integrates with external email services.
+
+### 6. Gateway Service
+
+- Acts as the API gateway to facilitate communication between microservices.
+- Provides a single entry point for external clients and handles routing to the appropriate services.
+- Enhances security through authentication and authorization mechanisms.
+
+### 7. Keycloak Service (in progress)
+
+- Manages user authentication and authorization.
+- Provides a secure identity and access management solution for the application.
 
 ## Technologies Used
 
