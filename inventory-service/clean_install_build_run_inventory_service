@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker stop inventory-service
-docker rm inventory-service
-docker rmi inventory-service
-mvn clean install
-docker build -t inventory-service .
-docker run --network app_network -d -p 8082:8082 --name inventory-service inventory-service

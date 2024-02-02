@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker stop discovery-service
-docker rm discovery-service
-docker rmi discovery-service
-mvn clean install
-docker build -t discovery-service .
-docker run --network app_network -d -p 8761:8761 --name discovery-service discovery-service

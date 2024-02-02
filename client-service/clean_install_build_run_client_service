@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker stop client-service
-docker rm client-service
-docker rmi client-service
-mvn clean install -DskipTests
-docker build -t client-service .
-docker run --network app_network -d -p 8083:8083 --name client-service client-service

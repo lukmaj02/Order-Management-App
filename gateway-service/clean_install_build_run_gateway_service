@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker stop gateway-service
-docker rm gateway-service
-docker rmi gateway-service
-mvn clean install -DskipTests
-docker build -t gateway-service .
-docker run --network app_network -d -p 8080:8080 -p 5006:5006 -e JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=*:5006,server=y,suspend=n" --name gateway-service gateway-service
