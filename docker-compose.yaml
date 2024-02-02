@@ -11,9 +11,32 @@ services:
       - '8888:8888'
     depends_on:
       discovery-service:
-        condition: service_completed_successfully
+        condition: service_started
 
     ###     DISCOVERY-SERVICE   ###
+
+  gateway-service:
+    container_name: api-gateway
+    build: gateway-service/.
+    ports:
+      - '8080:8080'
+    depends_on:
+      config-server:
+        condition: service_completed_successfully
+      discovery-service:
+        condition: service_completed_successfully
+
+  keycloak-service:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:23.0.5
+    ports:
+      - '8090:8080'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    command:
+      - start-dev
+
 
   discovery-service:
     container_name: discovery-service
@@ -42,7 +65,7 @@ services:
     container_name: order-service2
     build: order-service/.
     ports:
-      - '8083:8081'
+      - '8085:8081'
     depends_on:
       config-server:
         condition: service_completed_successfully
@@ -65,6 +88,17 @@ services:
         condition: service_completed_successfully
       inventory-db:
         condition: service_completed_successfully
+
+    ###     NOTIFICATION-SERVICE   ###
+
+  notification-service:
+    container_name: notification-service
+    build: notification-service/.
+    ports:
+      - '8083:8083'
+    env_file:
+      - notification-service/.env
+
 
     ###     PICKUP-SERVICE   ###
 
