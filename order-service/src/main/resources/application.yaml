@@ -11,3 +11,4 @@ services:
   path:
     notification-service: "http://notification-service"
     inventory-service: "http://inventory-service"
+    pickup-service: "http://pickip-service"
