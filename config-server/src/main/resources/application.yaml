@@ -7,6 +7,11 @@ spring:
   application:
     name:
       config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lukmaj02/Order-Management-App/config
 
 eureka:
   client:

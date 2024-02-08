@@ -18,10 +18,12 @@
         <option value="$PROJECT_DIR$/gateway-service/pom.xml" />
         <option value="$PROJECT_DIR$/notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/pickup-service/pom.xml" />
+        <option value="$PROJECT_DIR$/oauth2-server/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/client-service/pom.xml" />
         <option value="$PROJECT_DIR$/discovery-server/pom.xml" />
       </set>
     </option>

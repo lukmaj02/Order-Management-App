@@ -11,14 +11,15 @@
         <module name="inventory-service" />
         <module name="gateway-service" />
         <module name="order-service" />
+        <module name="oauth2-server" />
         <module name="pickup-service" />
         <module name="discovery-service" />
         <module name="notification-service" />
-        <module name="client-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="client" target="17" />
+      <module name="client-service" target="17" />
       <module name="discovery-server" target="17" />
       <module name="product-service" target="17" />
     </bytecodeTargetLevel>
@@ -33,6 +34,7 @@
       <module name="gateway-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="oauth2-server" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="pickup-service" options="-parameters" />
     </option>
