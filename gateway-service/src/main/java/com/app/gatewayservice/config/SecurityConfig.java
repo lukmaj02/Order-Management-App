@@ -10,12 +10,18 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+    private static final String[] PERMITTED_LIST = {
+            "/eureka/**",
+            "/registration/**"
+    };
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http){
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/eureka/**")
+                        .pathMatchers(PERMITTED_LIST)
+                        .permitAll()
+                        .pathMatchers("/registration/**")
                         .permitAll()
                         .anyExchange()
                         .authenticated())
