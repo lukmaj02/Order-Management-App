@@ -1,0 +1,8 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: oauth2-client
+  config:
+    import: 'optional:configserver:http://localhost:8887'

@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
+        <module name="oauth2-client" />
         <module name="inventory-service" />
         <module name="gateway-service" />
         <module name="order-service" />
@@ -34,6 +35,7 @@
       <module name="gateway-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="oauth2-client" options="-parameters" />
       <module name="oauth2-server" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="pickup-service" options="-parameters" />

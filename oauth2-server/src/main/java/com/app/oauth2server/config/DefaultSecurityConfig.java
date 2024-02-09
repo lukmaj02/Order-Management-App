@@ -21,18 +21,17 @@ public class DefaultSecurityConfig {
 
     @Bean
     SecurityWebFilterChain defaultSecurityFilterChain(ServerHttpSecurity http) throws Exception {
-        http.authorizeExchange(exchangeSpec -> exchangeSpec
-                .anyExchange()
-                .authenticated()
-            )
-        .formLogin(formLoginSpec -> formLoginSpec
-                .loginPage("/login)"));
+        http
+                .authorizeExchange(exchangeSpec -> exchangeSpec
+                    .anyExchange()
+                    .authenticated())
+                .formLogin(formLoginSpec -> formLoginSpec
+                    .loginPage("/login"));
         return http.build();
     }
 
     @Autowired
     public void bindAuthenticationProvider(AuthenticationManagerBuilder authenticationManagerBuilder) {
-        authenticationManagerBuilder
-                .authenticationProvider(customAuthenticationProvider);
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
     }
 }

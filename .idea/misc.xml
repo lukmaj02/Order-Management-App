@@ -19,6 +19,7 @@
         <option value="$PROJECT_DIR$/notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/pickup-service/pom.xml" />
         <option value="$PROJECT_DIR$/oauth2-server/pom.xml" />
+        <option value="$PROJECT_DIR$/oauth2-client/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
