@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 spring:
   cloud:
@@ -24,7 +24,7 @@ spring:
           filters:
             - PrefixPath=/api/v1
         - id: discovery-service
-          uri: http://discovery-service:8761
+          uri: http://localhost:8761
           predicates:
             - Path=/eureka/**
 
@@ -32,4 +32,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak-service:8080/realms/order-management-app
+          issuer-uri: http://localhost:9000
