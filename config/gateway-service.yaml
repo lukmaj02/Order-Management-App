@@ -27,6 +27,12 @@ spring:
           uri: http://localhost:8761
           predicates:
             - Path=/eureka/**
+        - id: oauth2-client
+          uri: lb://oauth2-client
+          predicates:
+            - Path=/registration/**
+          filters:
+            - PrefixPath=/api/v1
 
   security:
     oauth2:
