@@ -3,35 +3,33 @@ package com.app.oauth2server.config;
 import com.app.oauth2server.service.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+//@EnableWebSecurity
 
-@EnableWebSecurity
+@Configuration
 public class DefaultSecurityConfig {
 
     @Autowired
     private CustomAuthenticationProvider customAuthenticationProvider;
 
     @Bean
-    SecurityWebFilterChain defaultSecurityFilterChain(ServerHttpSecurity http) throws Exception {
-        http
-                .authorizeExchange(exchangeSpec -> exchangeSpec
-                    .anyExchange()
-                    .authenticated())
-                .formLogin(formLoginSpec -> formLoginSpec
-                    .loginPage("/login"));
+    @Order(2)
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin(Customizer.withDefaults());
+        http.authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().authenticated());
         return http.build();
     }
 
     @Autowired
     public void bindAuthenticationProvider(AuthenticationManagerBuilder authenticationManagerBuilder) {
-        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
+        authenticationManagerBuilder
+                .authenticationProvider(customAuthenticationProvider);
     }
 }

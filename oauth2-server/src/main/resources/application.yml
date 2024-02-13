@@ -6,6 +6,3 @@ spring:
     name: oauth2-server
   config:
     import: "optional:configserver:http://localhost:8887"
-
-auth:
-  issuer: "http://oauth2-server:9000"

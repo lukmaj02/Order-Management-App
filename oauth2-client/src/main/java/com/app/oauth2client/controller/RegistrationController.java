@@ -17,4 +17,10 @@ public class RegistrationController {
     public void registerUser(@RequestBody RegistrationBody user){
         registrationService.registerClient(user);
     }
+
+    @GetMapping("/test")
+    @ResponseStatus(HttpStatus.OK)
+    public String hello(){
+        return "dziala";
+    }
 }

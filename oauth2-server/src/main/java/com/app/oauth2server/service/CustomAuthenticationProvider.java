@@ -15,7 +15,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

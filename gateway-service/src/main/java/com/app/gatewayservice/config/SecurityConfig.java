@@ -21,8 +21,6 @@ public class SecurityConfig {
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers(PERMITTED_LIST)
                         .permitAll()
-                        .pathMatchers("/registration/**")
-                        .permitAll()
                         .anyExchange()
                         .authenticated())
                 .oauth2ResourceServer((ouath) -> ouath.jwt(Customizer.withDefaults()))
