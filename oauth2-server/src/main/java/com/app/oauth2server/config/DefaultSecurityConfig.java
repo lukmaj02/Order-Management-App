@@ -23,7 +23,8 @@ public class DefaultSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin(Customizer.withDefaults());
         http.authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated());
+                .requestMatchers("/login").permitAll()
+                .anyRequest().authenticated());
         return http.build();
     }
 

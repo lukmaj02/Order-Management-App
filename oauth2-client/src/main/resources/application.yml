@@ -15,7 +15,7 @@ spring:
             client-id: api-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:9090/login/oauth2/code/{registrationId}"
+            redirect-uri: "http://127.0.0.1:9090/login/oauth2/code/{registrationId}"
             scope: openid
             client-name: api-client-oidc
           api-client-authorization-code:
@@ -23,7 +23,7 @@ spring:
             client-id: api-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:9090/authorized"
+            redirect-uri: "http://127.0.0.1:9090/authorized"
             scope: api.read
             client-name: api-client-authorization-code
         provider:
