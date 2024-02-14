@@ -1,5 +1,6 @@
 package com.app.oauth2server.service;
 
+import com.app.oauth2server.enums.Role;
 import com.app.oauth2server.repository.ClientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,13 +42,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                getAuthorities(List.of(user.getRole()))
+                getAuthorities(user.getRoles())
         );
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(List<String> roles) {
+    private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
         return roles.stream()
-                .map(SimpleGrantedAuthority::new)
+                .map(role -> new SimpleGrantedAuthority(role.toString()))
                 .collect(Collectors.toList());
     }
 }
