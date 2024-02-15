@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ClientRoles {
+public class UserRoles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class ClientRoles {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "role")
-    private Client client;
+    @JoinColumn(name = "user_id", referencedColumnName = "role")
+    private User user;
 
 }

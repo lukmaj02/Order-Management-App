@@ -21,9 +21,19 @@ public class DefaultSecurityConfig {
     @Bean
     @Order(2)
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.formLogin(Customizer.withDefaults());
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login").permitAll()
+        http
+                .formLogin(form -> form
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/index")
+                    .permitAll())
+                .logout(Customizer.withDefaults());
+
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/login*").permitAll()
+                .requestMatchers("/register*").permitAll()
+                .requestMatchers("/index").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }

@@ -1,10 +1,7 @@
 package com.app.oauth2server.model;
 
 import com.app.oauth2server.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +14,13 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Client {
+@Table(name = "_user")
+public class User {
     @Id
-    private String id;
+    @Column(name = "user_id")
+    private String userId;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     private boolean enabled;
