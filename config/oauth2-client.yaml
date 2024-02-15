@@ -2,8 +2,6 @@ spring:
   jpa:
     database: POSTGRESQL
     show-sql: true
-    hibernate:
-      ddl-auto: update
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:9998/client_db

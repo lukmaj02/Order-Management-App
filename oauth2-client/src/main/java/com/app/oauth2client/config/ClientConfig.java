@@ -24,8 +24,8 @@ public class ClientConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/api/v1/registration/**")
-//                        .permitAll()
+                        .requestMatchers("/api/v1/registration/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .oauth2Client(Customizer.withDefaults())

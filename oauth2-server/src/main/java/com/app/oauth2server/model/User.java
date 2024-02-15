@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +25,10 @@ public class User {
     private String password;
     private boolean enabled;
 
-    @OneToMany(mappedBy = "role", orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<UserRoles> roles;
 }

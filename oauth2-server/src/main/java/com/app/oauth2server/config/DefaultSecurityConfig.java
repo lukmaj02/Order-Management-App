@@ -9,6 +9,10 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 //@EnableWebSecurity
 
@@ -23,17 +27,17 @@ public class DefaultSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(form -> form
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/index")
-                    .permitAll())
-                .logout(Customizer.withDefaults());
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/index"));
+//        http.formLogin(Customizer.withDefaults());
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login*").permitAll()
-                .requestMatchers("/register*").permitAll()
-                .requestMatchers("/index").permitAll()
+                .requestMatchers("/resources/**").anonymous()
+                .requestMatchers("/register*").anonymous()
+                .requestMatchers("/index").anonymous()
+                .requestMatchers("/login").anonymous()
                 .anyRequest().authenticated());
         return http.build();
     }
