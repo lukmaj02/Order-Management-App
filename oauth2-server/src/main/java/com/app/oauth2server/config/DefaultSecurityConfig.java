@@ -33,11 +33,13 @@ public class DefaultSecurityConfig {
 //        http.formLogin(Customizer.withDefaults());
 
         http
+                .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/resources/**").anonymous()
-                .requestMatchers("/register*").anonymous()
+//                .requestMatchers("/resources/**").anonymous()
                 .requestMatchers("/index").anonymous()
                 .requestMatchers("/login").anonymous()
+                .requestMatchers("/register").anonymous()
+                .requestMatchers("/register/**").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }

@@ -1,6 +1,6 @@
-package com.app.oauth2client.exceptions.advisor;
+package com.app.oauth2server.exceptions.advisor;
 
-import com.app.oauth2client.exceptions.UserEmailExistsException;
+import com.app.oauth2server.exceptions.UserEmailExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

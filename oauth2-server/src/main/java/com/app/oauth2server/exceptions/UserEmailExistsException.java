@@ -1,4 +1,4 @@
-package com.app.oauth2client.exceptions;
+package com.app.oauth2server.exceptions;
 
 import org.apache.logging.log4j.message.StringFormattedMessage;
 
