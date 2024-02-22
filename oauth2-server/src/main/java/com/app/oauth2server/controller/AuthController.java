@@ -32,7 +32,6 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
-         //create model object to store form data
         model.addAttribute("user", RegistrationDto.builder().build());
         return "register";
     }
@@ -41,8 +40,8 @@ public class AuthController {
     public String registration(@Valid @ModelAttribute("user") RegistrationDto registrationDto,
                                BindingResult result,
                                Model model){
-        regstrationService.registerUser(registrationDto);
 
+        regstrationService.registerUser(registrationDto);
         if(result.hasErrors()){
             model.addAttribute("user", registrationDto);
             return "/register";

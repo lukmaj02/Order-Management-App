@@ -38,7 +38,8 @@ public class RegistrationService implements IRegstrationService {
                 .build();
 
         userRepository.save(User.builder()
-                 .userId(UUID.randomUUID().toString())
+                .userId(UUID.randomUUID().toString())
+                .email(registrationDto.email())
                 .firstName(registrationDto.firstName())
                 .lastName(registrationDto.lastName())
                 .password(passwordEncoder.encode(registrationDto.password()))

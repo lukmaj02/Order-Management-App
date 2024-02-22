@@ -35,7 +35,6 @@ public class DefaultSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-//                .requestMatchers("/resources/**").anonymous()
                 .requestMatchers("/index").anonymous()
                 .requestMatchers("/login").anonymous()
                 .requestMatchers("/register").anonymous()
