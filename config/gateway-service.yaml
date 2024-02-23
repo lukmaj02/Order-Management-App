@@ -17,6 +17,7 @@ spring:
             - Path=/order/**
           filters:
             - PrefixPath=/api/v1
+            - TokenRelay=
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
